@@ -39,8 +39,5 @@ structure Reaction where
   v2 : ValidVector
 
 -- Tests:
--- def v1 : ValidVector := ⟨⟨1,1,1⟩, by unfold ShowsPoint; simp⟩
--- def v2 : ValidVector := ⟨⟨2,2,2⟩, by unfold ShowsPoint; simp⟩
--- def r : Reaction := ⟨v1, v2⟩
--- def v3 : ValidVector := v1 + v2  -- works, stays positive
+-- works, stays positive
 -- def bad : ValidVector := ⟨⟨0,0,0⟩, by unfold ShowsPoint; simp⟩ -- fails, as intended
