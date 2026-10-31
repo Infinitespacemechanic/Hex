@@ -1,36 +1,67 @@
-# HEX Inventory Tool v0.2.0
-# Fixes for 6523d40 critique
+# HEX — Lean 4 models
 
-Default of space is Dark. You have to have mass for light to be seen.
-Time is the labor in human terms... but that energy... which is mass.
-Time doesn't have a limit mass does, every atom has born date and expiration.
-You don't have to account for time... but you do have to use it to measure.
-Where less mass provides path to least resistance.
-Hourglass is not good for Maxwell — good for inventory.
+This repository contains two related Lean 4 tracks: an inventory-oriented model
+and a set of UPT/HRZ explorations. The second track was previously described in
+`README-T-GT-1.pdf`; its material is consolidated here.
 
-## What was fixed from v0.1.0 (6523d40)
-- Deleted contradictory axiom VectorsShowPointNotCancel (∀ v, ShowsPoint v => 0>0)
-- Replaced with ValidVector filter { v // ShowsPoint v } and theorem zero_does_not_show
-- Fixed Pressure: was mass/area (M L^-2), now m*g/A (M L^-1 T^-2) with pressure_pos proof
-- Removed def X : Prop := True labels, replaced with structures Mass, Area, Acceleration, Resistance, Labor, Inventory
-- Added lakefile.lean + lean-toolchain (v4.20.0 + Mathlib v4.20.0) for reproducibility
-- 0 axioms, lake build passes
+## Setup
 
-## Tool, not physics paper
-- Inventory for tomorrow: must have mass at hand
-- Mass dependency: need >1 mass for reaction
-- Container: big animals slow hearts, tiny fast
-- Compass: Fin 360, not one arrow
-- Barometric + hydrostatic measurement = labor
-- Path: through mountain vs over, with water vs against, atmosphere handling cosmic rays
+The project targets Lean 4.20.0 and Mathlib v4.20.0. The canonical project
+configuration is `lean-toolchain` and `lakefile.lean`.
 
-## Build
+```sh
 lake build
+```
 
-## Files
-Hex/Vector.lean - valid vectors, reaction needs 2
-Hex/Mass.lean - mass with birth
-Hex/Pressure.lean - pressure = m*g/A
-Hex/Time.lean - labor, measured time, t/t=1 holds at 1
-Hex/Light.lean - default dark
-Hex/Inventory.lean - compass, container, inventory
+The `_1` configuration files are duplicate alternatives; use the un-suffixed
+files as the project configuration.
+
+## Track 1: HEX inventory model
+
+These root-level files form the inventory-oriented model:
+
+- `Hex.lean` — umbrella module, importing the inventory modules.
+- `Vector.lean` — positive-coordinate vectors, valid-vector subtype, and
+  reactions requiring two valid vectors.
+- `Mass.lean` — mass and its birth data.
+- `Pressure.lean` — pressure as mass × acceleration ÷ area, with a positivity
+  theorem.
+- `Time.lean` — labor and measured time.
+- `Light.lean` — the model's default-dark premise.
+- `Inventory.lean` — compass, container, inventory, and related definitions.
+
+The project describes itself as an inventory tool rather than a physics paper.
+Its motivating ideas include tracking mass for future needs, resistance,
+pressure, and the role of an atmosphere.
+
+## Track 2: UPT and HRZ explorations
+
+The numbered root-level files are separate explorations:
+
+- `01_Paradox_MiddleIsOne.lean`
+- `02_Pressure_EqualPressureNotEqualPull.lean`
+- `03_Fulcrum_33_3_Wedge.lean`
+- `04_Point_Base12_Clock.lean`
+- `05_Time_Resistance_1s_per_s.lean`
+- `06_DewPoint_SmokeNotFire_H2O_Equalizer.lean`
+- `07_HRZ_RecalibratedZero_FIXED4.lean` — current fixed version of the
+  recalibrated-zero exploration.
+- `HRZ_RecalibratedZero.lean` — earlier HRZ version.
+
+The HRZ notes use “Hydrogen Refuses Zero” (HRZ) for a model in which a positive
+floor is assumed and zero is treated as a balance of two halves rather than a
+location. They explore reachable temperature above that floor, a repeating
+12-point pattern, and placeholder power values. These are premises and
+explorations in this repository; the README does not present them as established
+physical results.
+
+## Source layout note
+
+All Lean files currently live in the repository root. However, `Hex.lean`
+imports modules as `Hex.Vector`, `Hex.Pressure`, and so on, while the
+corresponding files are `Vector.lean`, `Pressure.lean`, etc. This does not match
+the usual Lake module-to-path layout (`Hex/Vector.lean`, etc.). The code layout
+or imports may need to be reconciled before relying on `lake build`.
+
+The build was not verified while preparing this README because Lake is not
+available in the current environment.
